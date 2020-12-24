@@ -95,7 +95,7 @@ class Collater:
         mels, silences, pitches, audios = self.Stack(mels, silences, pitches, audios)
 
         mels = torch.FloatTensor(mels).transpose(2, 1)   # [Batch, Mel_dim, Time]
-        silences = torch.FloatTensor(silences)   # [Batch, Time]
+        silences = torch.LongTensor(silences)   # [Batch, Time]
         pitches = torch.FloatTensor(pitches)   # [Batch, Time]
         audios = torch.FloatTensor(audios)   # [Batch, Time]
         noises = torch.randn(size= audios.size()) # [Batch, Time]
@@ -183,7 +183,7 @@ class Inference_Collater:
             labels.append(label)
             
         mels = torch.FloatTensor(np.stack(mels, axis= 0)).transpose(2, 1)   # [Batch, Time, Mel_dim] -> [Batch, Mel_dim, Time]
-        silences = torch.FloatTensor(np.stack(silences, axis= 0))   # [Batch, Time]
+        silences = torch.LongTensor(np.stack(silences, axis= 0))   # [Batch, Time]
         pitches = torch.FloatTensor(np.stack(pitches, axis= 0))     # [Batch, Time]
         noises = torch.randn(size= (mels.size(0), max_Mel_Length * self.frame_Shift))   # [Batch, Time]
         

@@ -181,13 +181,10 @@ class Discriminator(torch.nn.Module):
         '''
         x: [Batch, Time]
         '''
-        x = self.layer(x.unsqueeze(dim= 1)).squeeze(1)
-        if x.size(1) == self.sampling_size:
-            return x
+        offset = torch.randint(0, x.size(1) - self.sampling_size + 1, (1,))
+        x = x[:, offset:offset+self.sampling_size]
 
-        offset = torch.randint(0, x.size(1) - self.sampling_size, (1,))
-
-        return x[:, offset:offset+self.sampling_size]
+        return self.layer(x.unsqueeze(dim= 1)).squeeze(1)
 
     def apply_weight_norm(self):
         def _apply_weight_norm(m):

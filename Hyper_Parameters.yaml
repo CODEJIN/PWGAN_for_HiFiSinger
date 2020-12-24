@@ -69,7 +69,7 @@ Train:
     Logging_Interval: 100
     Evaluation_Interval: 1000
     Inference_Interval: 10000
-    Initial_Inference: false
+    Initial_Inference: true
     Inference_Pattern_in_Train: 'Inference_Text.txt'
 
 Inference_Batch_Size: 4

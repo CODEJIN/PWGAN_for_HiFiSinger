@@ -475,12 +475,12 @@ class Trainer:
 
         self.model_Dict['Generator'].eval()
 
-        for step, (noises, mels, silences, silences, labels) in tqdm(
+        for step, (noises, mels, silences, pitches, labels) in tqdm(
             enumerate(self.dataLoader_Dict['Inference']),
             desc='[Inference]',
             total= math.ceil(len(self.dataLoader_Dict['Inference'].dataset) / (self.hp.Inference_Batch_Size or self.hp.Train.Batch_Size))
             ):
-            self.Inference_Step(noises, mels, silences, silences, labels, start_index= step * (self.hp.Inference_Batch_Size or self.hp.Train.Batch_Size))
+            self.Inference_Step(noises, mels, silences, pitches, labels, start_index= step * (self.hp.Inference_Batch_Size or self.hp.Train.Batch_Size))
 
         self.model_Dict['Generator'].train()
 
